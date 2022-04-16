@@ -30,7 +30,7 @@ const Login = () => {
         // })
 
         // dispatch(userlogin(response.data.token))   
-        dispatch(userlogin(payload))   
+        await dispatch(userlogin(payload))   
         // window.alert("clicked");
         Navigate('/home')        
         // console.log('Success:', values);
