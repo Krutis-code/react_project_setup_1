@@ -7,9 +7,3 @@ const store = createStore(reducers, /* preloaded state */{},composeEnhancers(app
   
 export default store;
 
-// {
-//     "email": "krutipatel@gmail.com",
-//     "password": "Admin@123",
-//     "id": "994",
-//     "createdAt": "2022-04-15T14:02:10.159Z"
-// } 
