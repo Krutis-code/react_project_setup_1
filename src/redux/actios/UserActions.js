@@ -7,21 +7,26 @@ const headers = {
 }
 
 
-export const userlogin = (userdata) =>{
-    return async function(dispatch, getState){
-        
+export const userlogin = (userdata) => async (dispatch) =>{
+    
         // const Navigate  = useNavigate()
+        dispatch({type:ActionTypes.SET_LOADER, payload:{}})
+        console.log("inside middle ware......................")
 
         const res = await UserApiStore.post('/api/login', {
             ...userdata
         })
 
+        dispatch({type:ActionTypes.USER_LOGIN, payload:res.data.token})
 
-        console.log("response user login", res);
-        dispatch({type:ActionTypes.USER_LOGIN, payload:res})
+        console.log("after data etched async function response user login", res);
+        dispatch({type:ActionTypes.UNSET_LOADER,payload:{}})
         // Navigate('/home')
-    }
+    
 
 }
 
+// export const userlogin = (token) => {
+//     return {type:ActionTypes.USER_LOGIN, payload:token}
+// }
 

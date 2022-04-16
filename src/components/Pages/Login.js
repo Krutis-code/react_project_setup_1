@@ -1,26 +1,39 @@
 import React from 'react'
 import { Form, Input, Button, Checkbox } from 'antd';
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userlogin } from '../../redux/actios/UserActions';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { Spin } from 'antd';
+import UserApiStore from '../../api/UserApiStore';
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password,setPassword] = useState('');
 
     const dispatch = useDispatch();
     const Navigate  = useNavigate()
-
-    const onFinish = (values) => {
+    const loader = useSelector((state) => state.userReducer.loader)
+    // const token = useSelector(state => state.userReducer.token)
+    useEffect(()=>{
+        console.log("loaderzzzzzzzzzzzzzzzzzzzzzzzzzzz",loader);
+    },[loader])
+  
+    // console.log("loader......................................",loader);
+    const onFinish = async  (values) => {
         let payload = {
             email : username,
             password:password
         }
 
-         dispatch(userlogin(payload))   
-        Navigate('/home')
+        // const response = await UserApiStore.post('/api/login', {
+        //     ...payload
+        // })
 
-        console.log('Success:', values);
+        // dispatch(userlogin(response.data.token))   
+        dispatch(userlogin(payload))   
+        // window.alert("clicked");
+        Navigate('/home')        
+        // console.log('Success:', values);
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -31,6 +44,7 @@ const Login = () => {
     return (
         <>
             <div>Login</div>
+            {loader?<Spin></Spin>:""}
             <Form
                 name="basic"
                 labelCol={{
@@ -96,7 +110,10 @@ const Login = () => {
                     }}
                 >
                     <Button type="primary" htmlType="submit" onClick={onFinish}>
+                    {/* <Link to="/home"> */}
+
                         Submit
+                    {/* </Link> */}
                     </Button>
                 </Form.Item>
             </Form>
