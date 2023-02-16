@@ -20,7 +20,7 @@ const DefaultLyout = () => {
     return (
         <div>
             <BrowserRouter >
-                <Routes >
+                <Routes basepath="/react_project_setup_1">
                     <Route path="/" element={<Login />} />
                     {/* <Route path="/home" element={<Home />} /> */}
                     <Route path="/home" element={ <PrivateRoute><Home /></PrivateRoute>} />
